@@ -25,7 +25,25 @@ public class Main {
             }
         }
         GM.getGameBoard().Print();
+        String c= new Scanner(System.in).next();
+        Player p=GM.getPlayer();
+        while(!c.equals("o")){
+            if(c.equals("d")) {
+            GM.getGameBoard().ReplacePos(p,p.pos.x+1, p.pos.y);
+            }
+            if(c.equals("w")) {
+                GM.getGameBoard().ReplacePos(p,p.pos.x, p.pos.y-1);
+            }
+            if(c.equals("s")) {
+                GM.getGameBoard().ReplacePos(p,p.pos.x, p.pos.y+1);
+            }
+            if(c.equals("a")) {
+                GM.getGameBoard().ReplacePos(p,p.pos.x-1, p.pos.y);
+            }
 
+            GM.getGameBoard().Print();
+            c= new Scanner(System.in).next();
+        }
     }
 
 }
