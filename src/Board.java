@@ -17,7 +17,6 @@ public class Board {
         Tile TPrev=tiles.get(0);
         for (int i = 0; i < tiles.size(); i++) {
             Tile T=tiles.get(i);
-
             if(T.pos.y!=TPrev.pos.y) {
                 System.out.println("");
 

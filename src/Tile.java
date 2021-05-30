@@ -9,6 +9,10 @@ public class Tile {
         Movable=false;
     }
 
+    public char getC() {
+        return c;
+    }
+
     public boolean isMovable() {
         return Movable;
     }

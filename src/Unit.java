@@ -4,14 +4,18 @@ public class Unit extends Tile{
     int DefencePoints;
     Health h;
 
-    public Unit(Position pos,String Name,int AttackPoints, int DefencePoints,Health h)//todo can receive two ints instead of Health
+    public Unit(char c,Position pos,String Name,int AttackPoints, int DefencePoints,Health h)//todo can receive two ints instead of Health
     {
-        super('@',pos);
+        super(c,pos);
         this.Name=Name;
         this.AttackPoints= AttackPoints;
         this.DefencePoints= DefencePoints;
 
 
+    }
+    public void setPosition(Position p)
+    {
+        this.pos=p;
     }
 
 }
