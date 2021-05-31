@@ -18,6 +18,7 @@ public class GameManager {
         Board b = new Board();
         this.gameBoard=b;
         this.level++;
+
         new GameInitializer(path+"\\level"+level+".txt", gameBoard, player,this);
     }
     public boolean isGameOn() {

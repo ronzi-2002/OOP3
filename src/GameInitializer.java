@@ -22,6 +22,8 @@ public class GameInitializer {
         this.enemies.put('s',new Monster('s',null,"Lannister Solider",8,3,h,3,25));
         this.enemies.put('k',new Monster('k',null,"Lannister Knight",14,8,h,4,50));
         this.enemies.put('q',new Monster('q',null," Knight",14,8,h,4,50));
+        this.enemies.put('M',new Monster('M',null," Knight",14,8,h,4,50));
+        this.enemies.put('C',new Monster('C',null," Knight",14,8,h,4,50));
         this.enemies.put('Q',new Trap('Q',null,"Lannister ",14,8,h,4,50,44));
         this.enemies.put('B',new Trap('B',null,"a",14,8,h,4,50, 7));
         readAllLines(path,b,p);
