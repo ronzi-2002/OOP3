@@ -6,7 +6,7 @@ public class Main {
         for (int i = 0; i < players.length; i++) {
             System.out.println(players[i].describe());
         }
-        GameManager GM = new GameManager();
+        GameManager GM = new GameManager(args[0]);
         boolean VaildValue = false;
 
         while (!VaildValue) {
@@ -17,8 +17,9 @@ public class Main {
                 VaildValue = true;
                 Board b = new Board();
                 GM.setPlayer(p);
-                new GameInitializer(args[0] + "\\level1.txt", b, p);
                 GM.setGameBoard(b);
+                GM.nextLevel();
+                //new GameInitializer(args[0] + "\\level1.txt", b, p,GM);
             } catch (
                     Exception e) {
                 System.out.println("Not a vaild number \n enter again");
@@ -27,7 +28,7 @@ public class Main {
         GM.getGameBoard().Print();
         String c= new Scanner(System.in).next();
         Player p=GM.getPlayer();
-        while(!c.equals("o")){
+        while(GM.isGameOn()){
             if(c.equals("d")) {
             GM.getGameBoard().ReplacePos(p,p.pos.x+1, p.pos.y);
             }
@@ -40,8 +41,10 @@ public class Main {
             if(c.equals("a")) {
                 GM.getGameBoard().ReplacePos(p,p.pos.x-1, p.pos.y);
             }
-
+            if(c.equals("ll"))
+                GM.getEnemies().get(0).Defence(11111);
             GM.getGameBoard().Print();
+
             c= new Scanner(System.in).next();
         }
     }

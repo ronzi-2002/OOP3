@@ -10,6 +10,7 @@ public class Unit extends Tile{
         this.Name=Name;
         this.AttackPoints= AttackPoints;
         this.DefencePoints= DefencePoints;
+        this.h=h;
 
 
     }

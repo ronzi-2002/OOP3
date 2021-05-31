@@ -1,12 +1,14 @@
 public class Tile {
     char c;
-     Position pos;
+    Position pos;
+    protected boolean visible;
     protected boolean Movable;
     public Tile(char c,Position pos)
     {
         this.c=c;
         this.pos=pos;
         Movable=false;
+        visible=true;
     }
 
     public char getC() {
