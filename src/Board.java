@@ -26,7 +26,6 @@ public class Board {
 
     public void Print() {
         Tile TPrev = tiles.get(0);
-        System.out.println(TPrev.pos.y);
         for (int i = 0; i < tiles.size(); i++) {
             Tile T = tiles.get(i);
             if (T.pos.y != TPrev.pos.y) {

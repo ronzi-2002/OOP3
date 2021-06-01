@@ -14,4 +14,14 @@ public class Health {
             isDead=true;
         return isDead;
     }
+    public void IncreaseHealthAmount(int healthAdd){
+        if(HealthAmount+healthAdd>HealthPool)
+            HealthAmount=HealthPool;
+        else
+            HealthAmount=HealthAmount+healthAdd;
+    }
+    public String toString()
+    {
+        return HealthAmount+"/"+HealthPool;
+    }
 }

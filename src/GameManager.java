@@ -17,7 +17,6 @@ public class GameManager {
 //            Tickscount = tickscount;
 //        }
 //    }
-    public int TicksCount=0;
     private Board gameBoard;
     private Player player;
     private List<Enemy> enemies=new LinkedList<Enemy>();
@@ -72,6 +71,7 @@ public class GameManager {
     }
 
     public void onEnemyDeath(Enemy e) {
+        player.AddExperience(e.ExperienceValue);
         Empty empty = new Empty(e.pos);
         enemies.remove(e);
         this.gameBoard.tiles.add(this.gameBoard.tiles.indexOf(e), empty);
@@ -97,5 +97,9 @@ public class GameManager {
             if(this.getGameBoard().getTile(Move).accept(e))
                 this.getGameBoard().ReplacePos(e,Move);
         }
+    }
+    public void round(){
+        this.player.updateTicks();
+        MoveAllEnemies();
     }
 }

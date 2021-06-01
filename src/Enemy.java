@@ -16,7 +16,10 @@ public class Enemy extends Unit{
         this.Combat(player);
         return true;
     }
+
+
     public Position Move(Player player){
+        this.updateTicks();
         return this.pos;
     }
     @Override
@@ -25,9 +28,7 @@ public class Enemy extends Unit{
     }
     public boolean Defence(int Damage){
         int d = (int) (Math.random()*(this.DefencePoints+1));
-        System.out.println(d+"    "+Damage);
         if((Damage-d)>0){
-            System.out.println("oowe");
                 if (this.h.DecreaseHealth(Damage-d)){
                     this.enemyDeathCallBack.call();
                     return true;

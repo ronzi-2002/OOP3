@@ -1,3 +1,6 @@
+import java.util.LinkedList;
+import java.util.List;
+
 public class Position {
     int x;
     int y;
@@ -5,6 +8,14 @@ public class Position {
     {
         this.x=x;
         this.y=y;
+    }
+    public List<Enemy> InRange(List<Enemy> enemies,int range){
+        List <Enemy> enemiesList= new LinkedList<>();
+        for (Enemy e: enemies) {
+            if(Range(e.pos)<range)
+                enemiesList.add(e);
+        }
+        return enemiesList;
     }
     public double Range(Position position){
        return Math.sqrt(Math.pow(this.x- position.x,2)+Math.pow(this.y- position.y,2));

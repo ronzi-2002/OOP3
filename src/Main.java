@@ -45,14 +45,18 @@ public class Main {
                 if(GM.getGameBoard().getTile(p.pos.left()).accept(p))
                     GM.getGameBoard().ReplacePos(p,p.pos.left());
             }
-            if(c.equals("ll"))
-                GM.getEnemies().get(0).Defence(11111);
-            GM.MoveAllEnemies();
+            if(c.equals("e"))
+                p.specialAbility(p.pos.InRange(GM.getEnemies(),p.SpecialAbilityRange));
+            GM.round();
+            System.out.println(p.describe());
             GM.getGameBoard().Print();
+
         }
         System.out.println();
         System.out.println("Game over");
     }
+    public void PlayerMovement(String c){
 
+    }
 }
 

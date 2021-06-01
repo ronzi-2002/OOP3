@@ -1,9 +1,10 @@
 public abstract class Unit extends Tile{
+    MessageCallBack messageCallBack;
     String Name;
     int AttackPoints;
     int DefencePoints;
     Health h;
-
+    protected int TicksCount;
     public Unit(char c,Position pos,String Name,int AttackPoints, int DefencePoints,Health h)//todo can receive two ints instead of Health
     {
         super(c,pos);
@@ -21,4 +22,10 @@ public abstract class Unit extends Tile{
         return true;
     }
     public void setPosition(Position p) { this.pos=p;}
+    public  void updateTicks(){ return;}
+    public  String describe()
+    {
+        return String.format("Name: %s\t\tAttack Points: %d\t\tDefence Points: %d\t\tHealth: %s", Name, AttackPoints,DefencePoints , h.toString());
+    }
+
 }

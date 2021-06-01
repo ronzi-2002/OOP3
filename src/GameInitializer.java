@@ -19,7 +19,7 @@ public class GameInitializer {
         this.enemies=new HashMap<Character,Enemy>();
         Health h=new Health(80);
         new Monster('s',null,"Lannister Solider",8000000,3,h,3,25);
-        this.enemies.put('s',new Monster('s',null,"Lannister Solider",1,3,h,3,25));
+        this.enemies.put('s',new Monster('s',null,"Lannister Solider",8,3,h,3,25));
         this.enemies.put('k',new Monster('k',null,"Lannister Knight",14,8,h,4,50));
         this.enemies.put('q',new Monster('q',null," Knight",14,8,h,4,50));
         this.enemies.put('M',new Monster('M',null," Knight",14,8,h,4,50));

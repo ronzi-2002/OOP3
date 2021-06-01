@@ -1,6 +1,10 @@
-public  class Player extends Unit{
+import java.util.List;
+
+public abstract class Player extends Unit{
+
     int Experience;
     int PlayerLevel;
+    protected int SpecialAbilityRange;
     protected PlayerDeathCallback deathCallback;
     public Player(Position pos,String Name,int AttackPoints, int DefencePoints,Health h)
     {
@@ -20,6 +24,9 @@ public  class Player extends Unit{
 
         }
     }
+    public abstract void specialAbility(List<Enemy> enemiesInRange);
+
+
     public boolean accept(Unit u){
         return u.Visit(this);
     }
@@ -64,28 +71,40 @@ public  class Player extends Unit{
 //    protected int gainDefense(){
 //        return level * DEFENSE_BONUS;
 //    }
+
+   private int levelUpRequirement(){
+       return 50 * PlayerLevel;
+   }
 //
-//    private int levelUpRequirement(){
-//        return REQ_EXP * level;
-//    }
-//
-//    public int getLevel() {
-//        return level;
-//    }
-//    public int getExperience() {
-//        return experience;
-//    }
+    public int getLevel() {
+        return PlayerLevel;
+    }
+    public int getExperience() {
+        return Experience;
+    }
 //
 //    public void visit(Player p){
 //
 //    }
 //
-//    public String describe() {
-//        return String.format("%s\t\tLevel: %d\t\tExperience: %d/%d", super.describe(), getLevel(), getExperience(), levelUpRequirement());
-//    }
-    public String describe(){
-        return "pickle rick";
-    }
+        public void LevelUp(){
+            this.Experience-=this.levelUpRequirement();
+            PlayerLevel+=1;
+            h.HealthPool+=10*PlayerLevel;
+            h.HealthAmount=h.HealthAmount;
+            AttackPoints+=4*PlayerLevel;
+            DefencePoints+=PlayerLevel;
+        }
+        public void AddExperience(int Experience){
+            this.Experience+=Experience;
+            if(this.Experience>=this.levelUpRequirement()){
+                LevelUp();
+            }
+        }
+        public String describe() {
+            return String.format("%s\t\tLevel: %d\t\tExperience: %d/%d", super.describe(), getLevel(), getExperience(), levelUpRequirement());
+        }
+
     public boolean Combat(Enemy e) {
         int Damage=(int) (Math.random() * (this.AttackPoints + 1));
         return e.Defence(Damage);

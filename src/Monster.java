@@ -12,15 +12,14 @@ public class Monster extends Enemy {
     public Position Move(Player player){
         double Range = this.pos.Range(player.pos);
         if(Range!=1.0) {
-            if (Range < this.VisionRange) {
-                System.out.println("hey rick u son of bitch i'm in ");
+            if (Range <= this.VisionRange) {
                 double dx = (this.pos.x - player.pos.x);
                 double dy = (this.pos.y - player.pos.y);
                 if (Math.abs(dx) > Math.abs(dy)) {
                     if (dx > 0)
-                        return this.pos.right();
-                    else
                         return this.pos.left();
+                    else
+                        return this.pos.right();
 
                 } else {
                     if (dy > 0)

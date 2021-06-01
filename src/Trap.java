@@ -16,6 +16,12 @@ public class Trap extends Enemy {
     }
 
     @Override
+    public void updateTicks() {
+        this.TicksCount++;
+        visibleToInvisible();
+    }
+
+    @Override
     public Enemy clone(){
         return new Trap(this.c,this.pos,this.Name,this.AttackPoints,this.DefencePoints,this.h,this.ExperienceValue,this.InvisibilityTime,this.visibilityTime);
     }
