@@ -28,29 +28,43 @@ public class Main {
         GM.getGameBoard().Print();
         Player p=GM.getPlayer();
         while(GM.isGameOn()){
-          String c= new Scanner(System.in).next();
-            if(c.equals("d")) {
-                if(GM.getGameBoard().getTile(p.pos.right()).accept(p))
-                    GM.getGameBoard().ReplacePos(p,p.pos.right());
-            }
-            if(c.equals("w")) {
-                if(GM.getGameBoard().getTile(p.pos.up()).accept(p))
-                    GM.getGameBoard().ReplacePos(p,p.pos.up());
-            }
-            if(c.equals("s")) {
-                if(GM.getGameBoard().getTile(p.pos.down()).accept(p))
-                   GM.getGameBoard().ReplacePos(p,p.pos.down());
-            }
-            if(c.equals("a")) {
-                if(GM.getGameBoard().getTile(p.pos.left()).accept(p))
-                    GM.getGameBoard().ReplacePos(p,p.pos.left());
-            }
-            if(c.equals("e"))
-                p.specialAbility(p.pos.InRange(GM.getEnemies(),p.SpecialAbilityRange));
-            GM.round();
-            System.out.println(p.describe());
-            GM.getGameBoard().Print();
+          String moves= new Scanner(System.in).nextLine();
+          String [] arr=moves.split(" ");
+            for (int i = 0; i < arr.length && GM.isGameOn(); i++) {
+               String c=arr[i];
+                Position posi = null;
+                boolean entered=false;
+                if (c.equals("d")) {
+                    posi = p.pos.right();
+                    entered=true;
+                }
+                if (c.equals("w")) {
+                    posi = p.pos.up();
+                    entered=true;
 
+                }
+                if (c.equals("s")) {
+                    posi = p.pos.down();
+                    entered=true;
+
+                }
+                if (c.equals("a")) {
+                    posi = p.pos.left();
+                    entered=true;
+
+                }
+                if (c.equals("e")) {
+                    p.specialAbility(p.pos.InRange(GM.getEnemies(), p.SpecialAbilityRange));
+                    entered = true;
+                }
+                if(entered) {
+                    if (GM.getGameBoard().getTile(posi).accept(p))
+                        GM.getGameBoard().ReplacePos(p, posi);
+                    GM.round();
+                }
+            }
+                System.out.println(p.describe());
+                GM.getGameBoard().Print();
         }
         System.out.println();
         System.out.println("Game over");
