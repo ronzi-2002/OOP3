@@ -7,6 +7,8 @@ public class Mage extends Player {
     private int SpellPower;
     private int HitsCount;
     private int AbilityRange;
+    private String SpecialAbility="Blizzard";
+
     public Mage(Position pos,  String Name, Health h, int AttackPoints, int DefencePoints,int ManaPool,int ManaCost, int SpellPower, int hitsCount,int Range) {
         super(pos, Name, AttackPoints, DefencePoints, h);
         this.AbilityRange=Range;
@@ -22,13 +24,29 @@ public class Mage extends Player {
     }
     @Override
     public void specialAbility(List<Enemy> enemiesInRange) {
-        while(!enemiesInRange.isEmpty() && CurrentMana>=ManaCost) {
+        String s = "";
+        if( CurrentMana-ManaCost>=0){
+        while(!enemiesInRange.isEmpty()) {
             double random =  (Math.random());
-            if(random<0.5)
-                enemiesInRange.remove(0).Defence( SpellPower);
-            else
+            messageCallBack.Print(String.format("%s cast %s " ,this.Name ,this.SpecialAbility));
+            if(random<0.5) {
+                messageCallBack.Print(String.format("%s rolled %d attack points" ,this.Name ,SpellPower));
+                 s += enemiesInRange.get(0).Name+" ";
+                 enemiesInRange.remove(0).Defence(SpellPower);
+            }else{
                 enemiesInRange.remove(0);
+            }
+
         }
+        if(s.length()>0)
+            messageCallBack.Print(String.format("%s cast %s and hit:%s " ,this.Name ,this.SpecialAbility,s));
         CurrentMana-=ManaCost;
+        }else{
+            messageCallBack.Print(String.format("%s tried to cast %s, but there was not enough mana: %d/%d",this.Name ,this.SpecialAbility,SpellPower));
+        }
+    }
+
+    public String describe() {
+        return String.format("%s\t\tmanaPool: %d/%d\t spell power: %d", super.describe(),CurrentMana,manaPool,this.SpellPower );
     }
 }

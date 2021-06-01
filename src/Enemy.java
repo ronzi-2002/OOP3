@@ -13,6 +13,7 @@ public class Enemy extends Unit{
 
     @Override
     public boolean Visit(Player player) {
+        messageCallBack.Print(String.format("%s engaged to fight with %s" ,this.Name ,player.Name));
         this.Combat(player);
         return true;
     }
@@ -28,6 +29,7 @@ public class Enemy extends Unit{
     }
     public boolean Defence(int Damage){
         int d = (int) (Math.random()*(this.DefencePoints+1));
+        messageCallBack.Print(String.format("%s rolled %d defence points",this.Name,d));
         if((Damage-d)>0){
                 if (this.h.DecreaseHealth(Damage-d)){
                     this.enemyDeathCallBack.call();
@@ -47,6 +49,13 @@ public class Enemy extends Unit{
        return unit.Visit(this);
     }
     public void Combat(Player player){
-        player.Defence((int) (Math.random()*(AttackPoints+1)));
+        int Damage=(int) (Math.random()*(AttackPoints+1));
+        messageCallBack.Print(String.format("%s rolled %d attack points" ,this.Name ,Damage));
+        player.Defence(Damage);
+    }
+    public void initialize(MessageCallBack messageCallBack1) {
+        super.initialize(messageCallBack1);
+        this.enemyDeathCallBack=enemyDeathCallBack;
+        return ;
     }
 }

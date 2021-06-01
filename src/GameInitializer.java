@@ -34,7 +34,7 @@ public class GameInitializer {
                         board.add(new Empty(p));
                     else if (c == '@') {
                         player.setPosition(p);
-                        player.SetInputProvider((input) ->InputAssist(input) );
+                        player.initialize((msg)-> System.out.println(msg), (input) ->InputAssist(input) );
                         board.add(player);
                         player.setDeathCallback(() -> GM.onPlayerDeath());
                     } else {
@@ -44,6 +44,7 @@ public class GameInitializer {
                         e.setPosition(p);
                         board.add(e);
                         e.setDeathCallback(() -> GM.onEnemyDeath(e));
+                        e.initialize((msg)-> System.out.println(msg));
                     }
                 }
                 j--;

@@ -21,13 +21,17 @@ public class Warrior extends Player {
     public void specialAbility(List<Enemy> enemiesInRange) {
         if (RemainingCoolDown == 0) {
             if (!enemiesInRange.isEmpty()) {
+                this.h.IncreaseHealthAmount(this.DefencePoints*10);//added
                 int random = (int) (Math.random() * (enemiesInRange.size() - 1));
+                messageCallBack.Print(String.format("%s cast %s, healing for %d " ,this.Name ,this.SpecialAbility,this.DefencePoints*10));
+                messageCallBack.Print(String.format("%s rolled %d attack points" ,this.Name ,(h.HealthPool) / 10));
                 enemiesInRange.get(random).Defence((h.HealthPool) / 10);
             }
             h.IncreaseHealthAmount(DefencePoints * 10);
             RemainingCoolDown = AbilityCoolDown+1;
+        }else {
+            messageCallBack.Print(String.format("%s try to cast %s but there is a coolDown %d", this.Name, this.SpecialAbility,this.RemainingCoolDown));
         }
-
     }
     public String describe() {
         return String.format("%s\t\tCoolDown: %d/%d", super.describe(),RemainingCoolDown,AbilityCoolDown );

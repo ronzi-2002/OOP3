@@ -31,7 +31,7 @@ public class Monster extends Enemy {
                 return this.RandomPos();
             }
         }else{
-            this.Combat(player);
+            this.Visit(player);
             return this.pos;
         }
     }

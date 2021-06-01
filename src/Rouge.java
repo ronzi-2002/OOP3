@@ -3,6 +3,7 @@ import java.util.List;
 public class Rouge extends Player{
     private int cost;
     private int CurrentEnergy;
+    public String SpecialAbility="Fan of Knives";
     public Rouge(Position pos, String Name, Health h, int AttackPoints, int DefencePoints, int cost) {
         super(pos, Name, AttackPoints, DefencePoints, h);
         this.cost=cost;
@@ -15,10 +16,18 @@ public class Rouge extends Player{
 
     @Override
     public void specialAbility(List<Enemy> enemiesInRange) {
-        while(!enemiesInRange.isEmpty()) {
-            enemiesInRange.remove(0).Defence( (AttackPoints));
+        if(this.CurrentEnergy-cost>0) {
+            messageCallBack.Print(String.format("%s cast %s ", this.Name, this.SpecialAbility));
+            while (!enemiesInRange.isEmpty()) {
+                messageCallBack.Print(String.format("%s rolled %d attack points", this.Name, AttackPoints));
+                enemiesInRange.remove(0).Defence((AttackPoints));
+            }
+            this.CurrentEnergy -= cost;
+            h.IncreaseHealthAmount(DefencePoints * 10);
+            messageCallBack.Print(String.format("%s cast %s, healing for %d ", this.Name, this.SpecialAbility, this.DefencePoints * 10));
+        }else{
+            messageCallBack.Print(String.format("%s tried to cast %s but there was not enough energy d%/d% ", this.Name, this.SpecialAbility,this.CurrentEnergy,100));
+
         }
-        this.CurrentEnergy-=cost;
-        h.IncreaseHealthAmount(DefencePoints * 10);
     }
 }

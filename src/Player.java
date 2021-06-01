@@ -19,6 +19,7 @@ public abstract class Player extends Unit{
 
     public void Defence(int Damage){
         int d = (int) (Math.random()*this.DefencePoints)+1;
+        messageCallBack.Print(String.format("%s rolled %d defence points",this.Name,d));
         if(Damage-d>0){
             if (this.h.DecreaseHealth(Damage))
                 this.deathCallback.call();
@@ -76,18 +77,14 @@ public abstract class Player extends Unit{
    private int levelUpRequirement(){
        return 50 * PlayerLevel;
    }
-//
+
     public int getLevel() {
         return PlayerLevel;
     }
     public int getExperience() {
         return Experience;
     }
-//
-//    public void visit(Player p){
-//
-//    }
-//
+
         public void LevelUp(){
             this.Experience-=this.levelUpRequirement();
             PlayerLevel+=1;
@@ -108,9 +105,12 @@ public abstract class Player extends Unit{
 
     public boolean Combat(Enemy e) {
         int Damage=(int) (Math.random() * (this.AttackPoints + 1));
+        messageCallBack.Print(String.format("%s rolled %d attack points" ,this.Name ,Damage));
         return e.Defence(Damage);
     }
     public boolean Visit(Enemy e) {
+        messageCallBack.Print(String.format("%s engaged to fight with %s" ,this.Name ,e.Name));
+
         return this.Combat(e);
 
     }
@@ -123,5 +123,10 @@ public abstract class Player extends Unit{
 
     public void SetInputProvider(InputProvider inputProvider) {
         this.inputProvider=inputProvider;
+    }
+    public Player initialize(MessageCallBack messageCallBack1,InputProvider inputProvider) {
+        super.initialize(messageCallBack1);
+        this.inputProvider=inputProvider;
+        return this;
     }
 }
