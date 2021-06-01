@@ -1,4 +1,4 @@
-public class Unit extends Tile{
+public abstract class Unit extends Tile{
     String Name;
     int AttackPoints;
     int DefencePoints;
@@ -11,12 +11,14 @@ public class Unit extends Tile{
         this.AttackPoints= AttackPoints;
         this.DefencePoints= DefencePoints;
         this.h=h;
-
-
     }
-    public void setPosition(Position p)
-    {
-        this.pos=p;
+    public abstract boolean Visit(Enemy enemy);
+    public abstract boolean Visit(Player player);
+    public boolean Visit(Wall wall){
+        return false;
     }
-
+    public boolean Visit(Empty empty){
+        return true;
+    }
+    public void setPosition(Position p) { this.pos=p;}
 }

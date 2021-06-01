@@ -1,19 +1,29 @@
 public  class Player extends Unit{
     int Experience;
     int PlayerLevel;
+    protected PlayerDeathCallback deathCallback;
     public Player(Position pos,String Name,int AttackPoints, int DefencePoints,Health h)
     {
         super('@',pos, Name, AttackPoints, DefencePoints, h);
         this.Experience=0;
         this.PlayerLevel=1;
     }
-    public void accept(Unit u){
+    public void setDeathCallback(PlayerDeathCallback deathCallback) {
+        this.deathCallback=deathCallback;
     }
 
-    public void visit(Enemy e){
-    }
+    public void Defence(int Damage){
+        int d = (int) (Math.random()*this.DefencePoints)+1;
+        if(Damage-d>0){
+            if (this.h.DecreaseHealth(Damage))
+                this.deathCallback.call();
 
-//    public ? getAction(){
+        }
+    }
+    public boolean accept(Unit u){
+        return u.Visit(this);
+    }
+    //    public ? getAction(){
 //        return inputProvider.getAction();
 //    }
 //
@@ -75,5 +85,19 @@ public  class Player extends Unit{
 //    }
     public String describe(){
         return "pickle rick";
+    }
+    public boolean Combat(Enemy e) {
+        int Damage=(int) (Math.random() * (this.AttackPoints + 1));
+        return e.Defence(Damage);
+    }
+    public boolean Visit(Enemy e) {
+        return this.Combat(e);
+
+    }
+    public void Dead(){
+        this.c='X';
+    }
+    public boolean Visit(Player player) {
+        return true;
     }
 }

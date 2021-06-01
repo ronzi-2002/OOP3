@@ -26,27 +26,32 @@ public class Main {
             }
         }
         GM.getGameBoard().Print();
-        String c= new Scanner(System.in).next();
         Player p=GM.getPlayer();
         while(GM.isGameOn()){
+          String c= new Scanner(System.in).next();
             if(c.equals("d")) {
-            GM.getGameBoard().ReplacePos(p,p.pos.x+1, p.pos.y);
+                if(GM.getGameBoard().getTile(p.pos.right()).accept(p))
+                    GM.getGameBoard().ReplacePos(p,p.pos.right());
             }
             if(c.equals("w")) {
-                GM.getGameBoard().ReplacePos(p,p.pos.x, p.pos.y-1);
+                if(GM.getGameBoard().getTile(p.pos.up()).accept(p))
+                    GM.getGameBoard().ReplacePos(p,p.pos.up());
             }
             if(c.equals("s")) {
-                GM.getGameBoard().ReplacePos(p,p.pos.x, p.pos.y+1);
+                if(GM.getGameBoard().getTile(p.pos.down()).accept(p))
+                   GM.getGameBoard().ReplacePos(p,p.pos.down());
             }
             if(c.equals("a")) {
-                GM.getGameBoard().ReplacePos(p,p.pos.x-1, p.pos.y);
+                if(GM.getGameBoard().getTile(p.pos.left()).accept(p))
+                    GM.getGameBoard().ReplacePos(p,p.pos.left());
             }
             if(c.equals("ll"))
                 GM.getEnemies().get(0).Defence(11111);
+            GM.MoveAllEnemies();
             GM.getGameBoard().Print();
-
-            c= new Scanner(System.in).next();
         }
+        System.out.println();
+        System.out.println("Game over");
     }
 
 }

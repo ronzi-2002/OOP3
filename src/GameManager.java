@@ -2,6 +2,22 @@ import java.util.LinkedList;
 import java.util.List;
 
 public class GameManager {
+//    public class TicksCount{
+//        private Integer Tickscount;
+//        private TicksCount(){
+//            Tickscount=0;
+//        }
+//
+//        public int getTickscount() {
+//            if(Tickscount==null) new TicksCount();
+//            return Tickscount;
+//        }
+//
+//        public void setTickscount(int tickscount) {
+//            Tickscount = tickscount;
+//        }
+//    }
+    public int TicksCount=0;
     private Board gameBoard;
     private Player player;
     private List<Enemy> enemies=new LinkedList<Enemy>();
@@ -26,6 +42,8 @@ public class GameManager {
     }
 
     public void onPlayerDeath(){
+        System.out.println("You lost");
+        player.Dead();
         this.GameOn=false;
     }
 
@@ -62,7 +80,6 @@ public class GameManager {
             try {
                 this.nextLevel();
             } catch (Exception e1) {
-                System.out.println("ron is clown");
                 GameOn = false;
             }
         }
@@ -72,5 +89,13 @@ public class GameManager {
     @Override
     public String toString() {
         return String.format("%s\n%s", gameBoard, player.describe());
+    }
+
+    public void MoveAllEnemies() {
+        for (Enemy e:enemies) {
+            Position Move= e.Move(player);
+            if(this.getGameBoard().getTile(Move).accept(e))
+                this.getGameBoard().ReplacePos(e,Move);
+        }
     }
 }

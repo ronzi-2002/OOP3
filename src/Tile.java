@@ -1,5 +1,5 @@
-public class Tile {
-    char c;
+public abstract class Tile {
+    protected char c;
     Position pos;
     protected boolean visible;
     protected boolean Movable;
@@ -10,11 +10,10 @@ public class Tile {
         Movable=false;
         visible=true;
     }
-
+    public abstract boolean accept(Unit unit);
     public char getC() {
         return c;
     }
-
     public boolean isMovable() {
         return Movable;
     }

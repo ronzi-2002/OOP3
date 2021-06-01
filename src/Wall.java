@@ -7,5 +7,9 @@ public class Wall extends Tile{
 
         }
 
+    @Override
+    public boolean accept(Unit unit) {
+        return unit.Visit(this);
 
+    }
 }
