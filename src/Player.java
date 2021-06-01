@@ -6,6 +6,7 @@ public abstract class Player extends Unit{
     int PlayerLevel;
     protected int SpecialAbilityRange;
     protected PlayerDeathCallback deathCallback;
+    public InputProvider inputProvider ;
     public Player(Position pos,String Name,int AttackPoints, int DefencePoints,Health h)
     {
         super('@',pos, Name, AttackPoints, DefencePoints, h);
@@ -118,5 +119,9 @@ public abstract class Player extends Unit{
     }
     public boolean Visit(Player player) {
         return true;
+    }
+
+    public void SetInputProvider(InputProvider inputProvider) {
+        this.inputProvider=inputProvider;
     }
 }

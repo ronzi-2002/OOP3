@@ -16,16 +16,6 @@ public class GameInitializer {
     public GameInitializer(String path,Board b,Player p,GameManager GM)
     {
         this.GM=GM;
-        this.enemies=new HashMap<Character,Enemy>();
-        Health h=new Health(80);
-        new Monster('s',null,"Lannister Solider",8000000,3,h,3,25);
-        this.enemies.put('s',new Monster('s',null,"Lannister Solider",8,3,h,3,25));
-        this.enemies.put('k',new Monster('k',null,"Lannister Knight",14,8,h,4,50));
-        this.enemies.put('q',new Monster('q',null," Knight",14,8,h,4,50));
-        this.enemies.put('M',new Monster('M',null," Knight",14,8,h,4,50));
-        this.enemies.put('C',new Monster('C',null," Knight",14,8,h,4,50));
-        this.enemies.put('Q',new Trap('Q',null,"Lannister ",14,8,h,4,50,44));
-        this.enemies.put('B',new Trap('B',null,"a",14,8,h,4,50, 7));
         readAllLines(path,b,p);
     }
     public void  readAllLines(String path, Board board, Player player) {
@@ -44,10 +34,12 @@ public class GameInitializer {
                         board.add(new Empty(p));
                     else if (c == '@') {
                         player.setPosition(p);
+                        player.SetInputProvider((input) ->InputAssist(input) );
                         board.add(player);
                         player.setDeathCallback(() -> GM.onPlayerDeath());
                     } else {
-                        Enemy e =this.enemies.get(c).clone();
+                        //Enemy e =this.enemies.get(c).clone();
+                        Enemy e = new TileFactory().enemiesMap.get(c).get().clone();
                         this.GM.setEnemies(e);
                         e.setPosition(p);
                         board.add(e);
@@ -59,6 +51,39 @@ public class GameInitializer {
         } catch (IOException e) {
             System.out.println(e.getMessage() + "\n" +
                     e.getStackTrace());
+        }
+    }
+    private void InputAssist(String c){
+        Player p= GM.getPlayer();
+        boolean entered=false;
+        Position posi = p.pos;
+        if (c.equals("d")) {
+            posi = p.pos.right();
+            entered=true;
+        }
+        if (c.equals("w")) {
+            posi = p.pos.up();
+            entered=true;
+
+        }
+        if (c.equals("s")) {
+            posi = p.pos.down();
+            entered=true;
+
+        }
+        if (c.equals("a")) {
+            posi = p.pos.left();
+            entered=true;
+
+        }
+        if (c.equals("e")) {
+            p.specialAbility(p.pos.InRange(GM.getEnemies(), p.SpecialAbilityRange));
+            entered = true;
+        }
+        if(entered || c.equals("q")) {
+            if (GM.getGameBoard().getTile(posi).accept(p))
+                GM.getGameBoard().ReplacePos(p, posi);
+            GM.round();
         }
     }
 }

@@ -3,7 +3,7 @@ public class Trap extends Enemy {
     private int InvisibilityTime;
     private int TicksCount;
     private boolean Movable=false;
-    public Trap(char c ,Position pos, String Name, int AttackPoints, int DefencePoints, Health h,int VisibilityTime,int InvisibilityTime,int ExperienceValue) {
+    public Trap(char c, Health h ,String Name, Position pos, int AttackPoints, int DefencePoints,int ExperienceValue,int VisibilityTime,int InvisibilityTime) {
         super(c ,pos, Name, AttackPoints, DefencePoints, h,ExperienceValue);
         this.visibilityTime=VisibilityTime;
         this.InvisibilityTime=InvisibilityTime;
@@ -23,6 +23,6 @@ public class Trap extends Enemy {
 
     @Override
     public Enemy clone(){
-        return new Trap(this.c,this.pos,this.Name,this.AttackPoints,this.DefencePoints,this.h,this.ExperienceValue,this.InvisibilityTime,this.visibilityTime);
+        return new Trap(this.c,this.h,this.Name,this.pos,this.AttackPoints,this.DefencePoints,this.ExperienceValue,this.visibilityTime,this.InvisibilityTime);
     }
 }

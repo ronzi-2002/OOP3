@@ -7,8 +7,11 @@ public class Mage extends Player {
     private int SpellPower;
     private int HitsCount;
     private int AbilityRange;
-    public Mage(Position pos,int SpellPower, String Name, int AttackPoints, int DefencePoints, Health h, int experience, int playerLevel,int ManaPool) {
+    public Mage(Position pos,  String Name, Health h, int AttackPoints, int DefencePoints,int ManaPool,int ManaCost, int SpellPower, int hitsCount,int Range) {
         super(pos, Name, AttackPoints, DefencePoints, h);
+        this.AbilityRange=Range;
+        this.HitsCount=hitsCount;
+        this.ManaCost=ManaCost;
         this.manaPool=ManaPool;
         this.CurrentMana=manaPool/4;
         this.SpellPower=SpellPower;

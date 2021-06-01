@@ -1,12 +1,12 @@
 public class Monster extends Enemy {
     private int VisionRange;
-    public Monster(char c,Position pos, String Name, int AttackPoints, int DefencePoints, Health h, int VisionRange,int ExperienceValue) {
+    public Monster( Position pos, char c,String Name, Health h, int AttackPoints, int DefencePoints,int ExperienceValue, int VisionRange) {
         super(c,pos, Name, AttackPoints, DefencePoints, h,ExperienceValue);
         this.VisionRange=VisionRange;
     }
     @Override
     public Enemy clone(){
-        return new Monster(this.c,this.pos,this.Name,this.AttackPoints,this.DefencePoints,this.h,this.VisionRange,this.ExperienceValue);
+        return new Monster(this.pos,this.c,this.Name,this.h,this.AttackPoints,this.DefencePoints,this.VisionRange,this.ExperienceValue);
     }
     @Override
     public Position Move(Player player){

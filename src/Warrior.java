@@ -5,7 +5,7 @@ public class Warrior extends Player {
     private int RemainingCoolDown;
     private String SpecialAbility="Avengers shield ";
 
-    public Warrior(Position pos, String Name, int AttackPoints, int DefencePoints, Health h,int AbilityCoolDown) {
+    public Warrior(Position pos, String Name, Health h, int AttackPoints, int DefencePoints, int AbilityCoolDown) {
         super(pos, Name, AttackPoints, DefencePoints, h);
         this.AbilityCoolDown=AbilityCoolDown;
         this.RemainingCoolDown=0;

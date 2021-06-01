@@ -10,8 +10,10 @@ public class Health {
         boolean isDead=false;
         if(HealthAmount-damageToDeal>0)
             this.HealthAmount=HealthAmount-damageToDeal;
-        else
+        else{
+            HealthAmount=0;
             isDead=true;
+        }
         return isDead;
     }
     public void IncreaseHealthAmount(int healthAdd){
