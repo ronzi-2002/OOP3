@@ -32,8 +32,10 @@ public class Board {
                 System.out.println("");
 
             }
-
+            if(T.visible)
             System.out.print(T.c);
+            else
+                System.out.print(new Empty(T.pos).c);
             TPrev = T;
 
 

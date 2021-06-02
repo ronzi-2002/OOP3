@@ -1,4 +1,4 @@
-public class Enemy extends Unit{
+public abstract class Enemy extends Unit{
     private boolean Movable=false;
     protected int ExperienceValue;
     protected EnemyDeathCallBack enemyDeathCallBack;
@@ -24,9 +24,7 @@ public class Enemy extends Unit{
         return this.pos;
     }
     @Override
-    public Enemy clone(){
-        return new Enemy(this.c,this.pos,this.Name,this.AttackPoints,this.DefencePoints,this.h,this.ExperienceValue);
-    }
+    public abstract Enemy clone();
     public boolean Defence(int Damage){
         int d = (int) (Math.random()*(this.DefencePoints+1));
         messageCallBack.Print(String.format("%s rolled %d defence points",this.Name,d));
@@ -48,11 +46,7 @@ public class Enemy extends Unit{
     public boolean accept(Unit unit) {
        return unit.Visit(this);
     }
-    public void Combat(Player player){
-        int Damage=(int) (Math.random()*(AttackPoints+1));
-        messageCallBack.Print(String.format("%s rolled %d attack points" ,this.Name ,Damage));
-        player.Defence(Damage);
-    }
+    public abstract void Combat(Player player);
     public void initialize(MessageCallBack messageCallBack1) {
         super.initialize(messageCallBack1);
         this.enemyDeathCallBack=enemyDeathCallBack;

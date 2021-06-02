@@ -21,7 +21,7 @@ public abstract class Player extends Unit{
         int d = (int) (Math.random()*this.DefencePoints)+1;
         messageCallBack.Print(String.format("%s rolled %d defence points",this.Name,d));
         if(Damage-d>0){
-            if (this.h.DecreaseHealth(Damage))
+            if (this.h.DecreaseHealth(Damage-d))
                 this.deathCallback.call();
 
         }
@@ -128,5 +128,10 @@ public abstract class Player extends Unit{
         super.initialize(messageCallBack1);
         this.inputProvider=inputProvider;
         return this;
+    }
+    public void EasterEgg(){
+        this.AttackPoints+=1000000;
+        this.DefencePoints+=1000000;
+        this.messageCallBack.Print("U just called the Master Tal Barami and he gave you a gift");
     }
 }

@@ -22,8 +22,8 @@ public class TileFactory {
                 () -> new Monster(null,'q',"Queen's Guard", new Health(400), 20, 15, 100,  5),
                 () -> new Monster(null,'M',"The Mountain", new Health(1000), 60, 25,  500, 6),
                 () -> new Monster(null,'C',"Queen Cersei", new Health(100), 10, 10,1000, 1),
-                () -> new Trap('B', new Health(1) ,"Bonus Trap",null ,1, 1, 1, 250,  1),
-                () -> new Trap('Q', new Health(250) ,"Queen's Trap", null,250, 50, 10, 100, 3),
+                () -> new Trap('B', new Health(1) ,"Bonus Trap",null ,1, 1, 250,1 ,  1),
+                () -> new Trap('Q', new Health(250) ,"Queen's Trap", null,250, 50,  100, 10,3),
 
                 () -> new Monster(null,'z', "Wright", new Health(600), 30, 15,100, 3),
                 () -> new Monster(null,'b', "Bear-Wright", new Health(1000), 75, 30, 250,  4),

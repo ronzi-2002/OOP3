@@ -21,22 +21,26 @@ public class Main {
                 GM.setGameBoard(b);
                 GM.nextLevel();
                 //new GameInitializer(args[0] + "\\level1.txt", b, p,GM);
-            } catch (
-                    Exception e) {
+            } catch (Exception e) {
                 System.out.println("Not a vaild number \n enter again");
             }
         }
         GM.getGameBoard().Print();
         Player p=GM.getPlayer();
-        while(GM.isGameOn()){
-          String moves= new Scanner(System.in).nextLine();
-          String [] arr=moves.split(" ");
+        while(GM.isGameOn()) {
+            String moves = new Scanner(System.in).nextLine();
+            String[] arr = moves.split(" ");
             for (int i = 0; i < arr.length && GM.isGameOn(); i++) {
-               String c=arr[i];
+                String c = arr[i];
                 p.inputProvider.getAction(c);
             }
-                System.out.println(p.describe());
+            System.out.println(p.describe());
+            try {
                 GM.getGameBoard().Print();
+            } catch (Exception e) {
+                GM.onPlayerDeath();
+                System.out.println("YOU WON");
+            }
         }
         System.out.println();
         System.out.println("Game over");

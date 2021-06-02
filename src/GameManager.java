@@ -39,11 +39,14 @@ public class GameManager {
     public boolean isGameOn() {
         return GameOn;
     }
-
+    public void EndGame(){
+        this.GameOn=false;
+    }
     public void onPlayerDeath(){
         System.out.println("You lost");
         player.Dead();
         this.GameOn=false;
+
     }
 
     public Board getGameBoard() {
@@ -79,7 +82,7 @@ public class GameManager {
         if (this.enemies.size() == 0) {
             try {
                 this.nextLevel();
-            } catch (Exception e1) {
+            } catch (IndexOutOfBoundsException e1) {
                 GameOn = false;
             }
         }

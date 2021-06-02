@@ -1,6 +1,7 @@
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
+import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
 import java.util.*;
 
@@ -21,6 +22,12 @@ public class GameInitializer {
     public void  readAllLines(String path, Board board, Player player) {
         List<String> lines = Collections.emptyList();
         try {
+            File file = new File(path);
+            if (!file.exists()) {
+                //throw new IndexOutOfBoundsException("finished the levels");
+                System.out.println("You Won");
+                System.exit(0);
+            }
             lines = Files.readAllLines(Paths.get(path));
             LinkedList<Enemy> enemies= new LinkedList<Enemy>();
             int j = lines.size();
@@ -52,6 +59,7 @@ public class GameInitializer {
         } catch (IOException e) {
             System.out.println(e.getMessage() + "\n" +
                     e.getStackTrace());
+
         }
     }
     private void InputAssist(String c){
@@ -80,6 +88,16 @@ public class GameInitializer {
         if (c.equals("e")) {
             p.specialAbility(p.pos.InRange(GM.getEnemies(), p.SpecialAbilityRange));
             entered = true;
+        }
+        if(c.equals("100111")){
+            entered=true;
+            p.EasterEgg();
+        }
+        if(c.equals("/")){
+            entered=true;
+            if(GM.getEnemies().size()>0 ){
+                GM.getEnemies().remove(0).Defence(10000000);
+            }
         }
         if(entered || c.equals("q")) {
             if (GM.getGameBoard().getTile(posi).accept(p))

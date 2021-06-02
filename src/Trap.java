@@ -10,15 +10,25 @@ public class Trap extends Enemy {
         this.TicksCount=0;
     }
     public void visibleToInvisible(){
-        visible=TicksCount<visibilityTime;
+        System.out.println(this.visible);
         if(TicksCount==(visibilityTime+InvisibilityTime))
             TicksCount=0;
+        visible=TicksCount<visibilityTime;
+    }
+
+    @Override
+    public void Combat(Player player) {
+        if(this.pos.Range(player.pos)<2) {
+            int x = (int) (Math.random() * (AttackPoints + 1));
+            player.Defence(x);
+        }
     }
 
     @Override
     public void updateTicks() {
-        this.TicksCount++;
+        System.out.println("___________________________________________");
         visibleToInvisible();
+        this.TicksCount++;
     }
 
     @Override
