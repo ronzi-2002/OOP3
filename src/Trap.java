@@ -10,7 +10,6 @@ public class Trap extends Enemy {
         this.TicksCount=0;
     }
     public void visibleToInvisible(){
-        System.out.println(this.visible);
         if(TicksCount==(visibilityTime+InvisibilityTime))
             TicksCount=0;
         visible=TicksCount<visibilityTime;
@@ -26,7 +25,6 @@ public class Trap extends Enemy {
 
     @Override
     public void updateTicks() {
-        System.out.println("___________________________________________");
         visibleToInvisible();
         this.TicksCount++;
     }

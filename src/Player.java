@@ -1,7 +1,10 @@
 import java.util.List;
 
 public abstract class Player extends Unit{
-
+    protected static final int REQ_EXP = 50;
+    protected static final int ATTACK_BONUS = 4;
+    protected static final int DEFENCE_BONUS = 1;
+    protected static final int HEALTH_BONUS = 10;
     int Experience;
     int PlayerLevel;
     protected int SpecialAbilityRange;
@@ -64,18 +67,19 @@ public abstract class Player extends Unit{
 //    }
 //
 //    // Health / attack / defense gain when the player levels up - should be overriden by player subclasses and call super.gainHealth() for the base amount, then add the extra value
-//    protected int gainHealth(){
-//        return level * HEALTH_BONUS;
-//    }
-//    protected int gainAttack(){
-//        return level * ATTACK_BONUS;
-//    }
-//    protected int gainDefense(){
-//        return level * DEFENSE_BONUS;
-//    }
+    protected int gainHealth(){
+        return PlayerLevel * HEALTH_BONUS;
+
+    }
+    protected int gainAttack(){
+        return PlayerLevel * ATTACK_BONUS;
+    }
+    protected int gainDefence(){
+        return PlayerLevel * DEFENCE_BONUS;
+    }
 
    private int levelUpRequirement(){
-       return 50 * PlayerLevel;
+       return REQ_EXP * PlayerLevel;
    }
 
     public int getLevel() {
@@ -88,14 +92,15 @@ public abstract class Player extends Unit{
         public void LevelUp(){
             this.Experience-=this.levelUpRequirement();
             PlayerLevel+=1;
-            h.HealthPool+=10*PlayerLevel;
-            h.HealthAmount=h.HealthAmount;
-            AttackPoints+=4*PlayerLevel;
-            DefencePoints+=PlayerLevel;
+            this.h.HealthPool+=gainHealth();
+            this.h.HealthAmount=this.h.HealthPool;
+            this.AttackPoints+=gainAttack();
+            this.DefencePoints+=gainDefence();
+            messageCallBack.Print(String.format("%s reached level %d: +%d health, +%d attack points, +%d defence points ",this.Name,this.PlayerLevel,gainHealth(),gainAttack(),gainDefence()));
         }
         public void AddExperience(int Experience){
             this.Experience+=Experience;
-            if(this.Experience>=this.levelUpRequirement()){
+            while(this.Experience>=this.levelUpRequirement()){
                 LevelUp();
             }
         }
@@ -106,11 +111,12 @@ public abstract class Player extends Unit{
     public boolean Combat(Enemy e) {
         int Damage=(int) (Math.random() * (this.AttackPoints + 1));
         messageCallBack.Print(String.format("%s rolled %d attack points" ,this.Name ,Damage));
-        return e.Defence(Damage);
+        if( e.Defence(Damage))
+            moveCallBack.move(e.pos);
+        return true;
     }
     public boolean Visit(Enemy e) {
         messageCallBack.Print(String.format("%s engaged to fight with %s" ,this.Name ,e.Name));
-
         return this.Combat(e);
 
     }

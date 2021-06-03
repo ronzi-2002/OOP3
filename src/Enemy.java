@@ -25,6 +25,7 @@ public abstract class Enemy extends Unit{
     }
     @Override
     public abstract Enemy clone();
+
     public boolean Defence(int Damage){
         int d = (int) (Math.random()*(this.DefencePoints+1));
         messageCallBack.Print(String.format("%s rolled %d defence points",this.Name,d));

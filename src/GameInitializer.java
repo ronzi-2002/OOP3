@@ -1,7 +1,6 @@
 import java.io.File;
 import java.io.IOException;
 import java.nio.file.Files;
-import java.nio.file.NoSuchFileException;
 import java.nio.file.Paths;
 import java.util.*;
 
@@ -42,6 +41,7 @@ public class GameInitializer {
                     else if (c == '@') {
                         player.setPosition(p);
                         player.initialize((msg)-> System.out.println(msg), (input) ->InputAssist(input) );
+                        player.moveCallBack=((posit)->GM.getGameBoard().ReplacePos(player,posit));
                         board.add(player);
                         player.setDeathCallback(() -> GM.onPlayerDeath());
                     } else {
@@ -51,6 +51,8 @@ public class GameInitializer {
                         e.setPosition(p);
                         board.add(e);
                         e.setDeathCallback(() -> GM.onEnemyDeath(e));
+                        e.moveCallBack=((posit)->GM.getGameBoard().ReplacePos(e,posit));
+
                         e.initialize((msg)-> System.out.println(msg));
                     }
                 }
@@ -100,8 +102,7 @@ public class GameInitializer {
             }
         }
         if(entered || c.equals("q")) {
-            if (GM.getGameBoard().getTile(posi).accept(p))
-                GM.getGameBoard().ReplacePos(p, posi);
+            GM.getGameBoard().getTile(posi).accept(p);
             GM.round();
         }
     }

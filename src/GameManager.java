@@ -86,6 +86,7 @@ public class GameManager {
                 GameOn = false;
             }
         }
+        player.Visit(empty);
     }
 
 
@@ -97,8 +98,7 @@ public class GameManager {
     public void MoveAllEnemies() {
         for (Enemy e:enemies) {
             Position Move= e.Move(player);
-            if(this.getGameBoard().getTile(Move).accept(e))
-                this.getGameBoard().ReplacePos(e,Move);
+            this.getGameBoard().getTile(Move).accept(e);
         }
     }
     public void round(){

@@ -19,6 +19,7 @@ public class Board {
                     int ind = tiles.indexOf(p);
                     tiles.set(tiles.indexOf(T), p);
                     tiles.set(ind, T);
+                    return;
                 }
             }
         }

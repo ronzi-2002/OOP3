@@ -1,5 +1,6 @@
 public abstract class Unit extends Tile{
     MessageCallBack messageCallBack;
+    public Move moveCallBack;//todo change to private
     String Name;
     int AttackPoints;
     int DefencePoints;
@@ -19,6 +20,7 @@ public abstract class Unit extends Tile{
         return false;
     }
     public boolean Visit(Empty empty){
+        moveCallBack.move(empty.pos);
         return true;
     }
     public void setPosition(Position p) { this.pos=p;}
