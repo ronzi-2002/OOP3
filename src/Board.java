@@ -41,6 +41,7 @@ public class Board {
 
 
         }
+        System.out.println();
     }
 
     public Tile getTile(Position pos) {

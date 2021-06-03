@@ -20,14 +20,17 @@ public abstract class Player extends Unit{
         this.deathCallback=deathCallback;
     }
 
-    public void Defence(int Damage){
+    public int Defence(int Damage){
         int d = (int) (Math.random()*this.DefencePoints)+1;
         messageCallBack.Print(String.format("%s rolled %d defence points",this.Name,d));
         if(Damage-d>0){
-            if (this.h.DecreaseHealth(Damage-d))
+            if (this.h.DecreaseHealth(Damage-d)) {
                 this.deathCallback.call();
-
+                return -1;
+            }
+            return Damage-d;
         }
+        return 0;
     }
     public abstract void specialAbility(List<Enemy> enemiesInRange);
 
@@ -111,8 +114,9 @@ public abstract class Player extends Unit{
     public boolean Combat(Enemy e) {
         int Damage=(int) (Math.random() * (this.AttackPoints + 1));
         messageCallBack.Print(String.format("%s rolled %d attack points" ,this.Name ,Damage));
-        if( e.Defence(Damage))
-            moveCallBack.move(e.pos);
+        int Caused=e.Defence(Damage);
+        messageCallBack.Print(String.format("%s dealt %d damage to %s " ,this.Name,Caused,e.Name));
+
         return true;
     }
     public boolean Visit(Enemy e) {

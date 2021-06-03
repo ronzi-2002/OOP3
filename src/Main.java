@@ -34,13 +34,8 @@ public class Main {
                 String c = arr[i];
                 p.inputProvider.getAction(c);
             }
-            System.out.println(p.describe());
-            try {
                 GM.getGameBoard().Print();
-            } catch (Exception e) {
-                GM.onPlayerDeath();
-                System.out.println("YOU WON");
-            }
+                System.out.println(p.describe());
         }
         System.out.println();
         System.out.println("Game over");

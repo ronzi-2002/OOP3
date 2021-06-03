@@ -14,30 +14,38 @@ public abstract class Enemy extends Unit{
     @Override
     public boolean Visit(Player player) {
         messageCallBack.Print(String.format("%s engaged to fight with %s" ,this.Name ,player.Name));
-        this.Combat(player);
+        int Damage=this.Combat(player);
+        messageCallBack.Print(String.format("%s rolled %d attack points" ,this.Name ,Damage));
+        int Caused=player.Defence(Damage);
+        if(Caused!=-1)
+            messageCallBack.Print(String.format("%s dealt %d damage to %s " ,this.Name,Caused,player.Name));
         return true;
     }
 
 
     public Position Move(Player player){
         this.updateTicks();
-        return this.pos;
+        if(this.pos.Range(player.pos)<2)
+            return player.pos;
+        else
+            return this.pos;
     }
     @Override
     public abstract Enemy clone();
 
-    public boolean Defence(int Damage){
+    public int Defence(int Damage){
         int d = (int) (Math.random()*(this.DefencePoints+1));
         messageCallBack.Print(String.format("%s rolled %d defence points",this.Name,d));
         if((Damage-d)>0){
                 if (this.h.DecreaseHealth(Damage-d)){
                     this.enemyDeathCallBack.call();
-                    return true;
             }
+            return Damage-d;
         }
-        return false;
+        return 0;
 
     }
+
 
     public void setDeathCallback(EnemyDeathCallBack enemyDeathCallBack) {
         this.enemyDeathCallBack=enemyDeathCallBack;
@@ -47,7 +55,7 @@ public abstract class Enemy extends Unit{
     public boolean accept(Unit unit) {
        return unit.Visit(this);
     }
-    public abstract void Combat(Player player);
+    public abstract int Combat(Player player);
     public void initialize(MessageCallBack messageCallBack1) {
         super.initialize(messageCallBack1);
         this.enemyDeathCallBack=enemyDeathCallBack;

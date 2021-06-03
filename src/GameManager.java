@@ -46,6 +46,8 @@ public class GameManager {
         System.out.println("You lost");
         player.Dead();
         this.GameOn=false;
+//        gameBoard.Print();
+//        System.exit(0);
 
     }
 
@@ -97,9 +99,11 @@ public class GameManager {
 
     public void MoveAllEnemies() {
         for (Enemy e:enemies) {
+            if(isGameOn())
+            {
             Position Move= e.Move(player);
             this.getGameBoard().getTile(Move).accept(e);
-        }
+        }}
     }
     public void round(){
         this.player.updateTicks();

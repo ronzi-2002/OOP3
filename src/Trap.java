@@ -16,11 +16,13 @@ public class Trap extends Enemy {
     }
 
     @Override
-    public void Combat(Player player) {
+    public int Combat(Player player) {
         if(this.pos.Range(player.pos)<2) {
-            int x = (int) (Math.random() * (AttackPoints + 1));
-            player.Defence(x);
+            return (int) (Math.random() * (AttackPoints + 1));
+
+
         }
+        return 0;
     }
 
     @Override

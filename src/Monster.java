@@ -9,10 +9,8 @@ public class Monster extends Enemy {
         return new Monster(this.pos,this.c,this.Name,this.h,this.AttackPoints,this.DefencePoints,this.ExperienceValue,this.VisionRange);
     }
     @Override
-    public void Combat(Player player){
-        int Damage=(int) (Math.random()*(AttackPoints+1));
-        messageCallBack.Print(String.format("%s rolled %d attack points" ,this.Name ,Damage));
-        player.Defence(Damage);
+    public int Combat(Player player){
+        return (int) (Math.random()*(AttackPoints+1));
     }
     @Override
     public Position Move(Player player){
