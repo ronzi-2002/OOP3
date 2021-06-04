@@ -18,7 +18,7 @@ public class Trap extends Enemy {
     @Override
     public int Combat(Player player) {
         if(this.pos.Range(player.pos)<2) {
-            return (int) (Math.random() * (AttackPoints + 1));
+            return NumericGenrator.getInstance().NextInt(0,AttackPoints);
 
 
         }

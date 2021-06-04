@@ -10,7 +10,7 @@ public class Monster extends Enemy {
     }
     @Override
     public int Combat(Player player){
-        return (int) (Math.random()*(AttackPoints+1));
+        return NumericGenrator.getInstance().NextInt(0,AttackPoints);
     }
     @Override
     public Position Move(Player player){

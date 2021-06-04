@@ -22,7 +22,7 @@ public class Warrior extends Player {
         if (RemainingCoolDown == 0) {
             if (!enemiesInRange.isEmpty()) {
                 this.h.IncreaseHealthAmount(this.DefencePoints*10);//added
-                int random = (int) (Math.random() * (enemiesInRange.size() - 1));
+                int random = (int) (Math.random() * (enemiesInRange.size()));
                 messageCallBack.Print(String.format("%s cast %s, healing for %d " ,this.Name ,this.SpecialAbility,this.DefencePoints*10));
                 messageCallBack.Print(String.format("%s rolled %d attack points" ,this.Name ,(h.HealthPool) / 10));
                 enemiesInRange.get(random).Defence((h.HealthPool) / 10);

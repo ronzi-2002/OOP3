@@ -26,7 +26,7 @@ public class Rouge extends Player{
             h.IncreaseHealthAmount(DefencePoints * 10);
             messageCallBack.Print(String.format("%s cast %s, healing for %d ", this.Name, this.SpecialAbility, this.DefencePoints * 10));
         }else{
-            messageCallBack.Print(String.format("%s tried to cast %s but there was not enough energy d%/d% ", this.Name, this.SpecialAbility,this.CurrentEnergy,100));
+            messageCallBack.Print(String.format("%s tried to cast %s but there was not enough energy %d/%d ", this.Name, this.SpecialAbility,this.CurrentEnergy,100));
 
         }
     }

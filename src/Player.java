@@ -21,7 +21,7 @@ public abstract class Player extends Unit{
     }
 
     public int Defence(int Damage){
-        int d = (int) (Math.random()*this.DefencePoints)+1;
+        int d = NumericGenrator.getInstance().NextInt(0,this.DefencePoints);
         messageCallBack.Print(String.format("%s rolled %d defence points",this.Name,d));
         if(Damage-d>0){
             if (this.h.DecreaseHealth(Damage-d)) {
@@ -112,7 +112,7 @@ public abstract class Player extends Unit{
         }
 
     public boolean Combat(Enemy e) {
-        int Damage=(int) (Math.random() * (this.AttackPoints + 1));
+        int Damage=NumericGenrator.getInstance().NextInt(0,AttackPoints);
         messageCallBack.Print(String.format("%s rolled %d attack points" ,this.Name ,Damage));
         int Caused=e.Defence(Damage);
         messageCallBack.Print(String.format("%s dealt %d damage to %s " ,this.Name,Caused,e.Name));

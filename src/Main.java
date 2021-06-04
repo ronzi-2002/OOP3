@@ -4,8 +4,9 @@ public class Main {
     public static void main(String[] args) {
         //Player[] players = {new Warrior(null, "Jon Snow", 30, 4, new Health(300), 3)};
         TileFactory T=new TileFactory();
+        RandomNumericGenerator.getInstance();
         for (int i = 0; i < T.listPlayers().size(); i++) {
-            System.out.println(T.listPlayers().get(i).describe());
+            System.out.println(i+1+".  "+ T.listPlayers().get(i).describe());
         }
         GameManager GM = new GameManager(args[0]);
         boolean VaildValue = false;
@@ -14,7 +15,7 @@ public class Main {
             try {
                 //int index = Integer.parseInt(System.console().readLine());//todo check if vaild number
                 int index = new Scanner(System.in).nextInt();
-                Player p = new TileFactory().listPlayers().get(index);
+                Player p = new TileFactory().listPlayers().get(index-1);
                 VaildValue = true;
                 Board b = new Board();
                 GM.setPlayer(p);

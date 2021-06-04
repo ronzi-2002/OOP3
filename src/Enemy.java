@@ -34,7 +34,7 @@ public abstract class Enemy extends Unit{
     public abstract Enemy clone();
 
     public int Defence(int Damage){
-        int d = (int) (Math.random()*(this.DefencePoints+1));
+        int d =  NumericGenrator.getInstance().NextInt(0,this.DefencePoints);
         messageCallBack.Print(String.format("%s rolled %d defence points",this.Name,d));
         if((Damage-d)>0){
                 if (this.h.DecreaseHealth(Damage-d)){
