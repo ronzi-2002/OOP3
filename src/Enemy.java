@@ -33,12 +33,12 @@ public abstract class Enemy extends Unit{
     @Override
     public abstract Enemy clone();
 
-    public int Defence(int Damage,boolean b){
+    public int Defence(int Damage,boolean IsSpecialAttack){
         int d =  NumericGenrator.getInstance().NextInt(0,this.DefencePoints);
         messageCallBack.Print(String.format("%s rolled %d defence points",this.Name,d));
         if((Damage-d)>0){
                 if (this.h.DecreaseHealth(Damage-d)){
-                    this.enemyDeathCallBack.call(b);
+                    this.enemyDeathCallBack.call(IsSpecialAttack);
             }
             return Damage-d;
         }

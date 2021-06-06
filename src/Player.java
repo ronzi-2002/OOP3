@@ -83,7 +83,7 @@ public abstract class Player extends Unit{
         return PlayerLevel * DEFENCE_BONUS;
     }
 
-   private int levelUpRequirement(){
+   public int levelUpRequirement(){
        return REQ_EXP * PlayerLevel;
    }
 
@@ -155,4 +155,5 @@ public abstract class Player extends Unit{
         this.DefencePoints+=1000000;
         this.messageCallBack.Print("U just called the Master Tal Barami and he gave you a gift");
     }
+
 }

@@ -28,12 +28,17 @@ public class GameManager {
         this.path=path;
         level=0;
     }
+    public void SetMode(String s){
+        if(s.equals("g"))
+            RandomNumericGenerator.getInstance();
+        if(s.equals("t"))
+            DetriminstGenrator.getInstance();
+    }
     public void nextLevel()
     {
         Board b = new Board();
         this.gameBoard=b;
         this.level++;
-
         new GameInitializer(path+"\\level"+level+".txt", gameBoard, player,this);
     }
     public boolean isGameOn() {

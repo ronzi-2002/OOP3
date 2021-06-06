@@ -91,10 +91,11 @@ public class GameInitializer {
             p.specialAbility(p.pos.InRange(GM.getEnemies(), p.SpecialAbilityRange));
             entered= true;
         }
-        if(c.equals("100111")){
+        if(c.equals("100100100")){
             entered=true;
             p.EasterEgg();
         }
+
         if(entered  || c.equals("q")) {
             if(!c.equals("e"))
                 GM.getGameBoard().getTile(posi).accept(p);
