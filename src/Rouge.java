@@ -20,7 +20,7 @@ public class Rouge extends Player{
             messageCallBack.Print(String.format("%s cast %s ", this.Name, this.SpecialAbility));
             while (!enemiesInRange.isEmpty()) {
                 messageCallBack.Print(String.format("%s rolled %d attack points", this.Name, AttackPoints));
-                enemiesInRange.remove(0).Defence((AttackPoints));
+                enemiesInRange.remove(0).Defence(AttackPoints,true);
             }
             this.CurrentEnergy -= cost;
             h.IncreaseHealthAmount(DefencePoints * 10);

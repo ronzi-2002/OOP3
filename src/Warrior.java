@@ -25,7 +25,7 @@ public class Warrior extends Player {
                 int random = (int) (Math.random() * (enemiesInRange.size()));
                 messageCallBack.Print(String.format("%s cast %s, healing for %d " ,this.Name ,this.SpecialAbility,this.DefencePoints*10));
                 messageCallBack.Print(String.format("%s rolled %d attack points" ,this.Name ,(h.HealthPool) / 10));
-                enemiesInRange.get(random).Defence((h.HealthPool) / 10);
+                enemiesInRange.get(random).Defence((h.HealthPool) / 10,true);
             }
             h.IncreaseHealthAmount(DefencePoints * 10);
             RemainingCoolDown = AbilityCoolDown+1;

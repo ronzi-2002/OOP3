@@ -41,6 +41,10 @@ public class Main {
         System.out.println();
         System.out.println("Game over");
     }
+//    public static void print(Board b)
+//    {
+//
+//    }
 
 }
 

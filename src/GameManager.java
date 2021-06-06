@@ -75,7 +75,7 @@ public class GameManager {
         this.enemies.add(e);
     }
 
-    public void onEnemyDeath(Enemy e) {
+    public void onEnemyDeath(Enemy e,boolean itSpecialAbility) {
         player.AddExperience(e.ExperienceValue);
         Empty empty = new Empty(e.pos);
         enemies.remove(e);
@@ -88,7 +88,8 @@ public class GameManager {
                 GameOn = false;
             }
         }
-        player.Visit(empty);
+        if(!itSpecialAbility)
+            player.Visit(empty);
     }
 
 

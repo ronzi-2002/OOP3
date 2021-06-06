@@ -32,7 +32,7 @@ public class Mage extends Player {
             if(random<0.5) {
                 messageCallBack.Print(String.format("%s rolled %d attack points" ,this.Name ,SpellPower));
                  s += enemiesInRange.get(0).Name+" ";
-                 enemiesInRange.remove(0).Defence(SpellPower);
+                 enemiesInRange.remove(0).Defence(SpellPower,true);
             }else{
                 enemiesInRange.remove(0);
             }
@@ -42,7 +42,7 @@ public class Mage extends Player {
             messageCallBack.Print(String.format("%s cast %s and hit:%s " ,this.Name ,this.SpecialAbility,s));
         CurrentMana-=ManaCost;
         }else{
-            messageCallBack.Print(String.format("%s tried to cast %s, but there was not enough mana: %d/%d",this.Name ,this.SpecialAbility,SpellPower));
+            messageCallBack.Print(String.format("%s tried to cast %s, but there was not enough mana: %d/%d",this.Name ,this.SpecialAbility,this.CurrentMana,this.ManaCost));
         }
     }
 

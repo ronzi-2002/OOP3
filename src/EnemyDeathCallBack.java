@@ -1,3 +1,3 @@
 public interface EnemyDeathCallBack {
-    public void call();
+    public void call(boolean b);
 }

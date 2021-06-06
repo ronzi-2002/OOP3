@@ -10,11 +10,13 @@ public abstract class Player extends Unit{
     protected int SpecialAbilityRange;
     protected PlayerDeathCallback deathCallback;
     public InputProvider inputProvider ;
+    //private boolean wasSpecialAbillity;
     public Player(Position pos,String Name,int AttackPoints, int DefencePoints,Health h)
     {
         super('@',pos, Name, AttackPoints, DefencePoints, h);
         this.Experience=0;
         this.PlayerLevel=1;
+        //wasSpecialAbillity=false;
     }
     public void setDeathCallback(PlayerDeathCallback deathCallback) {
         this.deathCallback=deathCallback;
@@ -114,7 +116,7 @@ public abstract class Player extends Unit{
     public boolean Combat(Enemy e) {
         int Damage=NumericGenrator.getInstance().NextInt(0,AttackPoints);
         messageCallBack.Print(String.format("%s rolled %d attack points" ,this.Name ,Damage));
-        int Caused=e.Defence(Damage);
+        int Caused=e.Defence(Damage,false);
         messageCallBack.Print(String.format("%s dealt %d damage to %s " ,this.Name,Caused,e.Name));
 
         return true;
@@ -124,6 +126,15 @@ public abstract class Player extends Unit{
         return this.Combat(e);
 
     }
+    //public  boolean Visit(Empty em)
+    //{
+    //    if(wasSpecialAbillity)
+    //    {
+    //        wasSpecialAbillity=false;
+    //        return false;
+    //    }
+    //    return true;
+    //}
     public void Dead(){
         this.c='X';
     }

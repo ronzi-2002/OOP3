@@ -50,7 +50,7 @@ public class GameInitializer {
                         this.GM.setEnemies(e);
                         e.setPosition(p);
                         board.add(e);
-                        e.setDeathCallback(() -> GM.onEnemyDeath(e));
+                        e.setDeathCallback((b) -> GM.onEnemyDeath(e,b));
                         e.moveCallBack=((posit)->GM.getGameBoard().ReplacePos(e,posit));
 
                         e.initialize((msg)-> System.out.println(msg));
@@ -89,20 +89,15 @@ public class GameInitializer {
         }
         if (c.equals("e")) {
             p.specialAbility(p.pos.InRange(GM.getEnemies(), p.SpecialAbilityRange));
-            entered = true;
+            entered= true;
         }
         if(c.equals("100111")){
             entered=true;
             p.EasterEgg();
         }
-        if(c.equals("/")){
-            entered=true;
-            if(GM.getEnemies().size()>0 ){
-                GM.getEnemies().remove(0).Defence(10000000);
-            }
-        }
-        if(entered || c.equals("q")) {
-            GM.getGameBoard().getTile(posi).accept(p);
+        if(entered  || c.equals("q")) {
+            if(!c.equals("e"))
+                GM.getGameBoard().getTile(posi).accept(p);
             GM.round();
         }
     }
