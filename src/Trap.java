@@ -19,8 +19,6 @@ public class Trap extends Enemy {
     public int Combat(Player player) {
         if(this.pos.Range(player.pos)<2) {
             return NumericGenrator.getInstance().NextInt(0,AttackPoints);
-
-
         }
         return 0;
     }

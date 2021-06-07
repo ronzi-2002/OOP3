@@ -12,12 +12,14 @@ class PlayerTest {
     private GameManager GM;
     private Warrior w;
     private Rouge rouge;
+    private Mage mage;
     @BeforeEach
     void setUp() {
         T = new TileFactory();
-        player= T.listPlayers().get(0);
-        w=new Warrior(player.pos, "Jon Snow", new Health(300), 30, 4, 3);
+        player = T.listPlayers().get(0);
+        w = new Warrior(player.pos, "Jon Snow", new Health(300), 30, 4, 3);
         rouge = new Rouge(player.pos, "Arya Stark", new Health(150), 40, 2, 20);
+        mage = new Mage(player.pos,"Thoros of Myr", new Health(250), 25, 4, 150, 20, 20, 3, 4);
         GM= new GameManager("C:\\Users\\user1\\Desktop\\OOP3\\levels_dir");
         GM.setPlayer(player);
         GM.SetMode("t");
@@ -128,13 +130,50 @@ class PlayerTest {
         list.add(e);
         rouge.specialAbility(list);
         assertEquals(HealthAmount-rouge.AttackPoints+e.DefencePoints/2,e.h.HealthAmount);
-        rouge.messageCallBack=player.messageCallBack;
+        mage.messageCallBack=player.messageCallBack;
         e.setPosition(new Position(player.pos.x,player.pos.y+1));
         e.h.HealthAmount = HealthAmount;
         HealthAmount = e.h.HealthAmount;
         list.add(e);
-        rouge.specialAbility(list);
-        assertEquals(HealthAmount-rouge.AttackPoints+e.DefencePoints/2,e.h.HealthAmount);
+        mage.specialAbility(list);
+        System.out.println(mage.getSpellPower());
+        assertEquals(HealthAmount - (mage.getHitsCount())*(mage.getSpellPower()-e.DefencePoints/2),e.h.HealthAmount);
+
+    }
+
+    @Test
+    void updateTicks() {
+        mage.messageCallBack=player.messageCallBack;
+        w.setRemainingCoolDown(w.getAbilityCoolDown());
+        int CoolDown=w.getRemainingCoolDown();
+        w.updateTicks();
+        assertEquals(CoolDown-1,w.getRemainingCoolDown());
+        while(CoolDown>0){
+            w.updateTicks();
+            CoolDown--;
+        }
+        assertEquals(0,w.getRemainingCoolDown());
+        rouge.setCurrentEnergy(100);
+        rouge.updateTicks();
+        assertEquals(100,rouge.getCurrentEnergy());
+        rouge.setCurrentEnergy(95);
+        rouge.updateTicks();
+        assertEquals(100,rouge.getCurrentEnergy());
+        rouge.setCurrentEnergy(5);
+        rouge.updateTicks();
+        assertEquals(15,rouge.getCurrentEnergy());
+        mage.setCurrentMana(mage.getManaPool());
+        mage.updateTicks();
+        assertEquals(mage.getManaPool(),mage.getCurrentMana());
+        mage.setCurrentMana(0);
+        mage.updateTicks();
+        assertEquals(0+ mage.PlayerLevel,mage.getCurrentMana());
+        while(mage.PlayerLevel<=mage.getManaPool()+1){
+            mage.LevelUp();
+        }
+        mage.setCurrentMana(0);
+        mage.updateTicks();
+        assertEquals(mage.getManaPool(),mage.getCurrentMana());
 
     }
 }

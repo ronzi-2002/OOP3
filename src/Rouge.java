@@ -30,4 +30,20 @@ public class Rouge extends Player{
 
         }
     }
+
+    public int getCost() {
+        return cost;
+    }
+
+    public void setCost(int cost) {
+        this.cost = cost;
+    }
+
+    public int getCurrentEnergy() {
+        return CurrentEnergy;
+    }
+
+    public void setCurrentEnergy(int currentEnergy) {
+        CurrentEnergy = currentEnergy;
+    }
 }

@@ -18,7 +18,8 @@ public class Board {
                 if (p.pos.ReplacePos(T)) {
                     int ind = tiles.indexOf(p);
                     tiles.set(tiles.indexOf(T), p);
-                    tiles.set(ind, T);
+                    if(ind!=-1)
+                        tiles.set(ind, T);
                     return;
                 }
             }

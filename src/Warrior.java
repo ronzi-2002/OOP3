@@ -36,4 +36,28 @@ public class Warrior extends Player {
     public String describe() {
         return String.format("%s\t\tCoolDown: %d/%d", super.describe(),RemainingCoolDown,AbilityCoolDown );
     }
+
+    public int getAbilityCoolDown() {
+        return AbilityCoolDown;
+    }
+
+    public void setAbilityCoolDown(int abilityCoolDown) {
+        AbilityCoolDown = abilityCoolDown;
+    }
+
+    public int getRemainingCoolDown() {
+        return RemainingCoolDown;
+    }
+
+    public void setRemainingCoolDown(int remainingCoolDown) {
+        RemainingCoolDown = remainingCoolDown;
+    }
+
+    public String getSpecialAbility() {
+        return SpecialAbility;
+    }
+
+    public void setSpecialAbility(String specialAbility) {
+        SpecialAbility = specialAbility;
+    }
 }

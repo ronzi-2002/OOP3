@@ -151,9 +151,10 @@ public abstract class Player extends Unit{
         return this;
     }
     public void EasterEgg(){
+        this.Name="Tal Barami";
         this.AttackPoints+=1000000;
         this.DefencePoints+=1000000;
-        this.messageCallBack.Print("U just called the Master Tal Barami and he gave you a gift");
+        this.messageCallBack.Print("U just became  the legend \"Tal Barami\"");
     }
 
 }
