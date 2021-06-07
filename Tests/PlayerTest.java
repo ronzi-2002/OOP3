@@ -1,3 +1,4 @@
+import Backend.*;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -32,16 +33,16 @@ class PlayerTest {
 
     @Test
     void defence() {
-        int [] attacks={0,player.h.HealthAmount+player.DefencePoints/2-1,player.h.HealthAmount+player.DefencePoints/2,player.h.HealthAmount+player.DefencePoints/2+10000};
-        int [] results={player.h.HealthAmount,1,0,0};
+        int [] attacks={0,player.getH().getHealthAmount()+player.getDefencePoints()/2-1,player.getH().getHealthAmount()+player.getDefencePoints()/2,player.getH().getHealthAmount()+player.getDefencePoints()/2+10000};
+        int [] results={player.getH().getHealthAmount(),1,0,0};
         boolean [] isDead={false,false,true,true};
         for (int i = 0; i < attacks.length; i++) {
             int n=attacks[i];
-            int healthBefore =player.h.HealthAmount;
+            int healthBefore =player.getH().getHealthAmount();
             player.Defence(n);
-            assertEquals(results[i],player.h.HealthAmount);
+            assertEquals(results[i],player.getH().getHealthAmount());
             assertEquals(isDead[i],!GM.isGameOn());
-            player.h.HealthAmount=healthBefore;
+            player.getH().setHealthAmount(healthBefore);
         }
 
     }
@@ -49,16 +50,16 @@ class PlayerTest {
     @Test
     void levelUp() {
         for (int i = 0; i <500; i++) {
-            player.h.HealthAmount = 1;
-            int attackPoints = player.AttackPoints;
-            int defencePoints = player.DefencePoints;
-            int healthPool = player.h.HealthPool;
-            int Level = player.PlayerLevel;
+            player.getH().setHealthAmount(1) ;
+            int attackPoints = player.getAttackPoints();
+            int defencePoints = player.getDefencePoints();
+            int healthPool = player.getH().getHealthPool();
+            int Level = player.getLevel();
             player.LevelUp();
-            assertEquals(healthPool + player.gainHealth(), player.h.HealthAmount);
-            assertEquals(attackPoints + player.gainAttack(), player.AttackPoints);
-            assertEquals(defencePoints + player.gainDefence(), player.DefencePoints);
-            assertEquals(Level + 1, player.PlayerLevel);
+            assertEquals(healthPool + player.gainHealth(), player.getH().getHealthAmount());
+            assertEquals(attackPoints + player.gainAttack(), player.getAttackPoints());
+            assertEquals(defencePoints + player.gainDefence(), player.getDefencePoints());
+            assertEquals(Level + 1, player.getLevel());
         }
     }
 
@@ -66,50 +67,50 @@ class PlayerTest {
     void addExperience() {
             int levelUp = player.levelUpRequirement();
             player.AddExperience(levelUp-1);
-            assertEquals(levelUp-1,player.Experience);
-            player.Experience=0;
-            int PlayerLevel= player.PlayerLevel;
+            assertEquals(levelUp-1,player.getExperience());
+            player.setExperience(0);
+            int PlayerLevel= player.getLevel();
             player.AddExperience(levelUp);
-            assertEquals(0,player.Experience);
-            assertEquals(PlayerLevel+1,player.PlayerLevel);
+            assertEquals(0,player.getExperience());
+            assertEquals(PlayerLevel+1,player.getLevel());
             levelUp = player.levelUpRequirement();
             player.AddExperience(levelUp+1);
-            assertEquals(1,player.Experience);
+            assertEquals(1,player.getExperience());
     }
 
     @Test
     void combat() {
         Enemy e = GM.getEnemies().get(0);
-        int HealthAmountBefore = e.h.HealthAmount;
+        int HealthAmountBefore = e.getH().getHealthAmount();
         player.Combat(e);
-        assertEquals(HealthAmountBefore-(player.AttackPoints/2-e.DefencePoints/2),e.h.HealthAmount);
-        player.AttackPoints=e.DefencePoints/3;
-        e.h.HealthAmount=e.h.HealthPool;
+        assertEquals(HealthAmountBefore-(player.getAttackPoints()/2-e.getDefencePoints()/2),e.getH().getHealthAmount());
+        player.setAttackPoints(e.getDefencePoints()/3);
+        e.getH().setHealthAmount(e.getH().getHealthPool());
         player.Combat(e);
-        assertEquals(HealthAmountBefore,e.h.HealthAmount);
-        player.AttackPoints=2*(e.DefencePoints+e.h.HealthPool);
+        assertEquals(HealthAmountBefore,e.getH().getHealthAmount());
+        player.setAttackPoints(2*(e.getDefencePoints()+e.getH().getHealthPool()));
         player.Combat(e);
-        assertEquals(0,e.h.HealthAmount);
+        assertEquals(0,e.getH().getHealthAmount());
     }
 
     @Test
     void visit() {
-        Empty empty = new Empty(new Position(player.pos.x+1,player.pos.y));
+        Empty empty = new Empty(new Position(player.pos.getX()+1,player.pos.getY()));
         Position PlayerPos=player.pos;
         Position EmptyPos=empty.pos;
         player.Visit(empty);
-        assertEquals(EmptyPos.x,player.pos.x);
-        assertEquals(EmptyPos.y,player.pos.y);
-        assertEquals(PlayerPos.x,empty.pos.x);
-        assertEquals(PlayerPos.y,empty.pos.y);
+        assertEquals(EmptyPos.getX(),player.pos.getX());
+        assertEquals(EmptyPos.getY(),player.pos.getY());
+        assertEquals(PlayerPos.getX(),empty.pos.getX());
+        assertEquals(PlayerPos.getY(),empty.pos.getY());
 
-        Wall wall = new Wall(new Position(player.pos.x+1,player.pos.y));
+        Wall wall = new Wall(new Position(player.pos.getX()+1,player.pos.getY()));
         Position WallPos=wall.pos;
         player.Visit(empty);
-        assertEquals(WallPos.x,wall.pos.x);
-        assertEquals(WallPos.y,wall.pos.y);
-        assertEquals(PlayerPos.y,player.pos.y);
-        assertEquals(PlayerPos.x,player.pos.x);
+        assertEquals(WallPos.getX(),wall.pos.getX());
+        assertEquals(WallPos.getY(),wall.pos.getY());
+        assertEquals(PlayerPos.getY(),player.pos.getY());
+        assertEquals(PlayerPos.getX(),player.pos.getX());
 
     }
 
@@ -117,27 +118,27 @@ class PlayerTest {
     void specialAbility() {
         w.messageCallBack=player.messageCallBack;
         Enemy e = GM.getEnemies().get(0);
-        e.setPosition(new Position(player.pos.x,player.pos.y+1));
+        e.setPosition(new Position(player.pos.getX(),player.pos.getY()+1));
         LinkedList<Enemy> list = new LinkedList<Enemy>();
         list.add(e);
-        int HealthAmount = e.h.HealthAmount;
+        int HealthAmount = e.getH().getHealthAmount();
         w.specialAbility(list);
-        assertEquals(HealthAmount-(w.h.HealthPool/10)+e.DefencePoints/2,e.h.HealthAmount);
+        assertEquals(HealthAmount-(w.getH().getHealthPool()/10)+e.getDefencePoints()/2,e.getH().getHealthAmount());
         rouge.messageCallBack=player.messageCallBack;
-        e.setPosition(new Position(player.pos.x,player.pos.y+1));
-        e.h.HealthAmount = HealthAmount;
-        HealthAmount = e.h.HealthAmount;
+        e.setPosition(new Position(player.pos.getX(),player.pos.getY()+1));
+        e.getH().setHealthAmount(HealthAmount);
+        HealthAmount = e.getH().getHealthAmount();
         list.add(e);
         rouge.specialAbility(list);
-        assertEquals(HealthAmount-rouge.AttackPoints+e.DefencePoints/2,e.h.HealthAmount);
+        assertEquals(HealthAmount-rouge.getAttackPoints()+e.getDefencePoints()/2,e.getH().getHealthAmount());
         mage.messageCallBack=player.messageCallBack;
-        e.setPosition(new Position(player.pos.x,player.pos.y+1));
-        e.h.HealthAmount = HealthAmount;
-        HealthAmount = e.h.HealthAmount;
+        e.setPosition(new Position(player.pos.getX(),player.pos.getY()+1));
+        e.getH().setHealthAmount(HealthAmount);
+        HealthAmount = e.getH().getHealthAmount();
         list.add(e);
         mage.specialAbility(list);
         System.out.println(mage.getSpellPower());
-        assertEquals(HealthAmount - (mage.getHitsCount())*(mage.getSpellPower()-e.DefencePoints/2),e.h.HealthAmount);
+        assertEquals(HealthAmount - (mage.getHitsCount())*(mage.getSpellPower()-e.getDefencePoints()/2),e.getH().getHealthAmount());
 
     }
 
@@ -167,8 +168,8 @@ class PlayerTest {
         assertEquals(mage.getManaPool(),mage.getCurrentMana());
         mage.setCurrentMana(0);
         mage.updateTicks();
-        assertEquals(0+ mage.PlayerLevel,mage.getCurrentMana());
-        while(mage.PlayerLevel<=mage.getManaPool()+1){
+        assertEquals( mage.getLevel(),mage.getCurrentMana());
+        while(mage.getLevel()<=mage.getManaPool()+1){
             mage.LevelUp();
         }
         mage.setCurrentMana(0);
