@@ -27,23 +27,24 @@ public class Board {
         }
     }
 
-    public void Print() {
+
+    public String toString()
+    {
         Tile TPrev = tiles.get(0);
+        String board="";
         for (int i = 0; i < tiles.size(); i++) {
             Tile T = tiles.get(i);
             if (T.pos.y != TPrev.pos.y) {
-                System.out.println("");
 
+                board=board+"\n";
             }
-            if(T.visible)
-            System.out.print(T.c);
+            if(T.visible) board=board+T.c;
             else
-                System.out.print(new Empty(T.pos).c);
+                board=board+(new Empty(T.pos).c);
             TPrev = T;
-
-
         }
-        System.out.println();
+        board=board+"\n";
+        return board;
     }
 
     public Tile getTile(Position pos) {

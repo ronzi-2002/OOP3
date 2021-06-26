@@ -32,7 +32,9 @@ public class Main {
                 System.out.println("Not a vaild number \n enter again");
             }
         }
-        GM.getGameBoard().Print();
+
+        System.out.println(GM.getGameBoard().toString());
+        //GM.getGameBoard().Print();
         Player p=GM.getPlayer();
         while(GM.isGameOn()) {
             String moves = new Scanner(System.in).nextLine();
@@ -47,16 +49,14 @@ public class Main {
                     p.inputProvider.getAction(c);
                 }
             }
-        GM.getGameBoard().Print();
+        //GM.getGameBoard().Print();
+            System.out.println(GM.getGameBoard().toString());
         System.out.println(p.describe());
         }
         System.out.println();
         System.out.println("Game over");
     }
-//    public static void print(Backend.Board b)
-//    {
-//
-//    }
+
 
 }
 

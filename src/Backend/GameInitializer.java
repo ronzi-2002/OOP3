@@ -47,7 +47,7 @@ public class GameInitializer {
                         board.add(player);
                         player.setDeathCallback(() -> GM.onPlayerDeath());
                     } else {
-                        //Backend.Enemy e =this.enemies.get(c).clone();
+
                         Enemy e = new TileFactory().enemiesMap.get(c).get().clone();
                         this.GM.setEnemies(e);
                         e.setPosition(p);

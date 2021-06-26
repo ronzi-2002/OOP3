@@ -23,7 +23,7 @@ class PlayerTest {
         w = new Warrior(player.pos, "Jon Snow", new Health(300), 30, 4, 3);
         rouge = new Rouge(player.pos, "Arya Stark", new Health(150), 40, 2, 20);
         mage = new Mage(player.pos,"Thoros of Myr", new Health(250), 25, 4, 150, 20, 20, 3, 4);
-        GM= new GameManager("C:\\Users\\user1\\Desktop\\OOP3\\levels_dir");
+        GM= new GameManager("C:\\Users\\2002r\\IdeaProjects\\OOP3\\levels_dir");//in order to run the tests, enter your path to the levels
         GM.setPlayer(player);
         GM.SetMode("t");
         GM.nextLevel();

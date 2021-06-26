@@ -42,38 +42,6 @@ public abstract class Player extends Unit{
     public boolean accept(Unit u){
         return u.Visit(this);
     }
-    //    public ? getAction(){
-//        return inputProvider.getAction();
-//    }
-//
-//    // Deals damage to the enemy with ability
-//    protected void abilityDamage(Backend.Enemy e, int abilityDamage) {
-//        e.
-//    }
-//
-//    // When the player kills an enemy
-//    protected void onKill(Backend.Enemy e){
-//    }
-//
-//    // When the player dies
-//    @Override
-//    public void onDeath() {
-//        messageCallback.send("You lost.");
-//        // Use deathCallback to alert the level manager
-//        deathCallback.call();
-//    }
-//
-//    // Backend.Player level up
-//    protected void levelUp(){
-//		...
-//    }
-//
-//    @Override
-//    public String toString() {
-//        return alive() ? super.toString() : "X";
-//    }
-//
-//    // Backend.Health / attack / defense gain when the player levels up - should be overriden by player subclasses and call super.gainHealth() for the base amount, then add the extra value
     public int gainHealth(){
         return PlayerLevel * HEALTH_BONUS;
 
@@ -128,15 +96,7 @@ public abstract class Player extends Unit{
         return this.Combat(e);
 
     }
-    //public  boolean Visit(Backend.Empty em)
-    //{
-    //    if(wasSpecialAbillity)
-    //    {
-    //        wasSpecialAbillity=false;
-    //        return false;
-    //    }
-    //    return true;
-    //}
+
     public void Dead(){
         this.c='X';
     }

@@ -18,12 +18,12 @@ class EnemyTest {
     void setUp() {
         T = new TileFactory();
         player = T.listPlayers().get(0);
-        GM = new GameManager("C:\\Users\\user1\\Desktop\\OOP3\\levels_dir");
+        GM = new GameManager("C:\\Users\\2002r\\IdeaProjects\\OOP3\\levels_dir");////in order to run the tests, enter your path to the levels
         GM.setPlayer(player);
         GM.SetMode("t");
         GM.nextLevel();
         monster = new Monster(new Position(1, 1), 'C', "Queen Cersei", new Health(100), 10, 10, 1000, 2);
-        trap = new Trap('B', new Health(1), "Bonus Backend.Trap", new Position(5, 5), 1, 1, 250, 1, 1);
+        trap = new Trap('B', new Health(1), "Bonus Trap", new Position(5, 5), 1, 1, 250, 1, 1);
         trap.setDeathCallback((b) -> GM.onEnemyDeath(trap, b));
         monster.setDeathCallback((b) -> GM.onEnemyDeath(monster, b));
         trap.moveCallBack = ((posit) -> GM.getGameBoard().ReplacePos(trap, posit));
